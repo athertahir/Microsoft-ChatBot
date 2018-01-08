@@ -14,8 +14,8 @@ server.listen(process.env.port || process.env.PORT || 81 || 80, function () {
 
 // Create chat connector for communicating with the Bot Framework Service
 var connector = new builder.ChatConnector({
-    appId: '97f026c9-5f05-4ab0-8e75-d893874ac009',
-    appPassword: 'tbinuAOGTJL8#:*bkI7469]'
+    appId: '2898e5ce-8bb4-41f5-9eb8-d02d3f38f0e2',
+    appPassword: 'ksqmMQ$rrtNYWNX60637?~('
 });
 
 // Listen for messages from users 
