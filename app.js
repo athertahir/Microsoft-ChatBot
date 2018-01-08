@@ -58,6 +58,9 @@ bot.on('conversationUpdate', function (message) {
 	console.log(message.address);
 	console.log('Member Added : ');
 	console.log(message.membersAdded);
+	bot.send(new builder.Message()
+                    .text(JSON.stringify(message))
+                    .address(message.address));
 	var address = message.address;
 	address.conversation;
 	if(message.address.channelId=="skype")
