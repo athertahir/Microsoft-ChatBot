@@ -26,7 +26,7 @@ server.post('/api/messages', connector.listen());
 var bot = new builder.UniversalBot(connector, function (session) {
 	console.log(session.message.address);
 	//session.send(session.message.address.bot.name);
-	//session.send(JSON.stringify(userStore));
+	session.send(JSON.stringify(userStore));
 
     var newAddresses = userStore;
     newAddresses.forEach(function (address) {
