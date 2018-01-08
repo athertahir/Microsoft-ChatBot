@@ -34,23 +34,22 @@ var bot = new builder.UniversalBot(connector, function (session) {
     // new conversation address, copy without conversationId
 	if(session.message.address.channelId=="webchat" && session.message.text)
 	{
-		///////////////////
-	bot.send(new builder.Message()
-                    .text(JSON.stringify(session.message.address))
-                    .address(session.message.address));
-	bot.send(new builder.Message()
-                    .text(JSON.stringify(userStore))
-                    .address(session.message.address));
+
 		///////////////////
     var newConversationAddress = Object.assign({}, address);
         
 		bot.send(new builder.Message()
                     .text(session.message.text)
-                    .address(address));
-		//bot.send('aam swe');  
+                    .address(address));  
 	}
 
     });
+	if(session.message.address.channelId=="webchat" && session.message.text)
+	{
+	bot.send(new builder.Message()
+                    .text(JSON.stringify('Message sent to all Skype Groups'))
+                    .address(session.message.address));
+	}
 
 
 });
@@ -63,26 +62,15 @@ bot.on('conversationUpdate', function (message) {
 	address.conversation;
 	if(message.address.channelId=="skype")
 	{
-	var exist=false;
-	userStore.forEach(function(value){
-		if(value.user.id==address.user.id)
-				exist=true;
-	});
-	if(!exist)	
+
 	userStore.push(address);
 	}
-	else
+	else if(session.message.address.channelId=="webchat" && session.message.text)
 	{
 	bot.send(new builder.Message()
-                    .text(JSON.stringify(message.address))
-                    .address(message.address));
-	bot.send(new builder.Message()
-                    .text(JSON.stringify(userStore))
-                    .address(message.address));
+                    .text(JSON.stringify('Type Message to sent to all Skype Groups'))
+                    .address(session.message.address));
 	}
-	bot.send(new builder.Message()
-                    .text(JSON.stringify(message))
-                    .address(message.address));
 /*
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
