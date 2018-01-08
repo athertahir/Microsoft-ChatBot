@@ -62,7 +62,12 @@ bot.on('conversationUpdate', function (message) {
 	address.conversation;
 	if(message.address.channelId=="skype")
 	{
-
+	var exist=false;
+	userStore.forEach(function(value){
+		if(value.conversation.id==message.address.conversation.id)
+		exist=true;
+	});
+	if(!exist)
 	userStore.push(address);
 	bot.send(new builder.Message()
                     .text(JSON.stringify(message))
@@ -71,8 +76,9 @@ bot.on('conversationUpdate', function (message) {
                     .text(JSON.stringify(userStore))
                     .address(message.address));
 	}
-	else if(message.address.channelId=="webchat" && !message.text)
+	else if(message.address.channelId=="webchat" && !message.text && session.privateConversationData['done'])
 	{
+	session.privateConversationData['done']=true;
 	bot.send(new builder.Message()
                     .text(JSON.stringify(message))
                     .address(message.address));
