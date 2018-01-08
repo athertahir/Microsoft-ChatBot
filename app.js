@@ -26,13 +26,8 @@ server.post('/api/messages', connector.listen());
 var bot = new builder.UniversalBot(connector, function (session) {
 	console.log(session.message.address);
 	session.send(session.message.address.bot.name);
-	var exist=false;
-	userStore.forEach(function(value){
-		if(value.serviceUrl==session.message.address.serviceUrl )
-		exist=true;
-	});
-	if(!exist && session.message.address.bot.name=='Bot' )
-	userStore.push(address);
+	session.send(JSON.stringify(userStore));
+
     var newAddresses = userStore;
     newAddresses.forEach(function (address) {
     console.log('Sending Message to Address: ', address);
@@ -51,20 +46,19 @@ var bot = new builder.UniversalBot(connector, function (session) {
 bot.on('conversationUpdate', function (message) {
 	console.log('Address : ');
 	console.log(message.address);
-	bot.send(new builder.Message()
-                    .text(JSON.stringify(message.address))
-                    .address(message.address));
+
 	console.log('Member Added : ');
 	console.log(message.membersAdded);
 	var address = message.address;
 	//delete address.conversation;
-	var exist=false;
-	userStore.forEach(function(value){
-		if(value.serviceUrl==address.serviceUrl)
-		exist=true;
-	});
-	if(!exist && message.address.bot.name=='Bot' )
+
 	userStore.push(address);
+	bot.send(new builder.Message()
+                    .text(JSON.stringify(message.address))
+                    .address(message.address));
+	bot.send(new builder.Message()
+                    .text(JSON.stringify(userStore))
+                    .address(message.address));
 /*
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
