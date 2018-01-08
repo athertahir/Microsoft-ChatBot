@@ -44,7 +44,7 @@ var bot = new builder.UniversalBot(connector, function (session) {
 	}
 
     });
-	if(session.message.address.channelId=="webchat" && !session.message.text)
+	if(session.message.address.channelId=="webchat" && session.message.text)
 	{
 	bot.send(new builder.Message()
                     .text(JSON.stringify('Message sent to all Skype Groups'))
@@ -65,7 +65,7 @@ bot.on('conversationUpdate', function (message) {
 
 	userStore.push(address);
 	}
-	else if(session.message.address.channelId=="webchat" && session.message.text)
+	else if(session.message.address.channelId=="webchat" && !session.message.text)
 	{
 	bot.send(new builder.Message()
                     .text(JSON.stringify('Type Message to sent to all Skype Groups'))
