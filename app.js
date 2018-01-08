@@ -68,15 +68,13 @@ bot.on('conversationUpdate', function (message) {
 	else if(message.address.channelId=="webchat" && !message.text)
 	{
 	bot.send(new builder.Message()
+                    .text(JSON.stringify(message))
+                    .address(message.address));
+	bot.send(new builder.Message()
                     .text(JSON.stringify('Type Message to sent to all Skype Groups not'))
                     .address(message.address));
 	}
-	else if(message.address.channelId=="webchat" && message.text)
-	{
-	bot.send(new builder.Message()
-                    .text(JSON.stringify('Type Message to sent to all Skype Groups'))
-                    .address(message.address));
-	}
+
 /*
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
