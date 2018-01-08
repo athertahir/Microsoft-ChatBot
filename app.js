@@ -65,11 +65,17 @@ bot.on('conversationUpdate', function (message) {
 
 	userStore.push(address);
 	}
-	else if(session.message.address.channelId=="webchat" && !session.message.text)
+	else if(message.address.channelId=="webchat" && !message.text)
+	{
+	bot.send(new builder.Message()
+                    .text(JSON.stringify('Type Message to sent to all Skype Groups not'))
+                    .address(message.address));
+	}
+	else if(message.address.channelId=="webchat" && message.text)
 	{
 	bot.send(new builder.Message()
                     .text(JSON.stringify('Type Message to sent to all Skype Groups'))
-                    .address(session.message.address));
+                    .address(message.address));
 	}
 /*
     if (message.membersAdded) {
