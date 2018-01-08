@@ -42,6 +42,7 @@ var bot = new builder.UniversalBot(connector, function (session) {
 
 });
 bot.on('conversationUpdate', function (message) {
+	session.send('here');
 	console.log('Address : ');
 	console.log(message.address);
 	console.log('Member Added : ');
