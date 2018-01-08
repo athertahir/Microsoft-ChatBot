@@ -34,6 +34,14 @@ var bot = new builder.UniversalBot(connector, function (session) {
     // new conversation address, copy without conversationId
 	if(session.message.address.channelId=="webchat" && session.message.text)
 	{
+		///////////////////
+	bot.send(new builder.Message()
+                    .text(JSON.stringify(session.message.address))
+                    .address(session.message.address));
+	bot.send(new builder.Message()
+                    .text(JSON.stringify(userStore))
+                    .address(session.message.address));
+		///////////////////
     var newConversationAddress = Object.assign({}, address);
         
 		bot.send(new builder.Message()
@@ -41,6 +49,7 @@ var bot = new builder.UniversalBot(connector, function (session) {
                     .address(address));
 		//bot.send('aam swe');  
 	}
+
     });
 
 
@@ -65,6 +74,9 @@ bot.on('conversationUpdate', function (message) {
                     .text(JSON.stringify(userStore))
                     .address(message.address));
 	}
+	bot.send(new builder.Message()
+                    .text(JSON.stringify(message))
+                    .address(message.address));
 /*
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
