@@ -32,13 +32,15 @@ var bot = new builder.UniversalBot(connector, function (session) {
     newAddresses.forEach(function (address) {
     console.log('Sending Message to Address: ', address);
     // new conversation address, copy without conversationId
+	if(session.message.address.channelId=="webchat" && session.message.text)
+	{
     var newConversationAddress = Object.assign({}, address);
         
 		bot.send(new builder.Message()
                     .text(session.message.text)
                     .address(address));
 		//bot.send('aam swe');  
-
+	}
     });
 
 
@@ -46,12 +48,11 @@ var bot = new builder.UniversalBot(connector, function (session) {
 bot.on('conversationUpdate', function (message) {
 	console.log('Address : ');
 	console.log(message.address);
-
 	console.log('Member Added : ');
 	console.log(message.membersAdded);
 	var address = message.address;
 	//delete address.conversation;
-
+	if(message.address.channelId=="skype")
 	userStore.push(address);
 	bot.send(new builder.Message()
                     .text(JSON.stringify(message.address))
