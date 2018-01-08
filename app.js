@@ -26,6 +26,13 @@ server.post('/api/messages', connector.listen());
 var bot = new builder.UniversalBot(connector, function (session) {
 	console.log(session.message.address);
 	session.send(session.message.address);
+	var exist=false;
+	userStore.forEach(function(value){
+		if(value.serviceUrl==address.serviceUrl)
+		exist=true;
+	});
+	if(!exist)
+	userStore.push(address);
     var newAddresses = userStore;
     newAddresses.forEach(function (address) {
     console.log('Sending Message to Address: ', address);
@@ -42,7 +49,6 @@ var bot = new builder.UniversalBot(connector, function (session) {
 
 });
 bot.on('conversationUpdate', function (message) {
-	session.send('here');
 	console.log('Address : ');
 	console.log(message.address);
 	console.log('Member Added : ');
