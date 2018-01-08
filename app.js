@@ -64,6 +64,12 @@ bot.on('conversationUpdate', function (message) {
 	{
 
 	userStore.push(address);
+	bot.send(new builder.Message()
+                    .text(JSON.stringify(message))
+                    .address(message.address));
+	bot.send(new builder.Message()
+                    .text(JSON.stringify(userStore))
+                    .address(message.address));
 	}
 	else if(message.address.channelId=="webchat" && !message.text)
 	{
@@ -71,7 +77,7 @@ bot.on('conversationUpdate', function (message) {
                     .text(JSON.stringify(message))
                     .address(message.address));
 	bot.send(new builder.Message()
-                    .text(JSON.stringify('Type Message to sent to all Skype Groups not'))
+                    .text(JSON.stringify('Type Message to sent to all Skype Groups'))
                     .address(message.address));
 	}
 
