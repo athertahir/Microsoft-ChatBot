@@ -25,13 +25,13 @@ server.post('/api/messages', connector.listen());
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
 var bot = new builder.UniversalBot(connector, function (session) {
 	console.log(session.message.address);
-	session.send(session.message.address);
+	session.send(session.message.address.bot.name);
 	var exist=false;
 	userStore.forEach(function(value){
-		if(value.serviceUrl==address.serviceUrl)
+		if(value.serviceUrl==session.message.address.serviceUrl )
 		exist=true;
 	});
-	if(!exist)
+	if(!exist && session.message.address.bot.name=='Bot' )
 	userStore.push(address);
     var newAddresses = userStore;
     newAddresses.forEach(function (address) {
@@ -60,7 +60,7 @@ bot.on('conversationUpdate', function (message) {
 		if(value.serviceUrl==address.serviceUrl)
 		exist=true;
 	});
-	if(!exist)
+	if(!exist && message.address.bot.name=='Bot' )
 	userStore.push(address);
 /*
     if (message.membersAdded) {
