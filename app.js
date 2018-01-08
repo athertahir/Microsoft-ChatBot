@@ -60,7 +60,7 @@ bot.on('conversationUpdate', function (message) {
 	console.log('Member Added : ');
 	console.log(message.membersAdded);
 	var address = message.address;
-	//delete address.conversation;
+	delete address.conversation;
 	if(message.address.channelId=="skype")
 	{
 	userStore.push(address);
