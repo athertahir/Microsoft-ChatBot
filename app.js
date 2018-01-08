@@ -25,8 +25,8 @@ server.post('/api/messages', connector.listen());
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
 var bot = new builder.UniversalBot(connector, function (session) {
 	console.log(session.message.address);
-	session.send(session.message.address.bot.name);
-	session.send(JSON.stringify(userStore));
+	//session.send(session.message.address.bot.name);
+	//session.send(JSON.stringify(userStore));
 
     var newAddresses = userStore;
     newAddresses.forEach(function (address) {
@@ -53,13 +53,18 @@ bot.on('conversationUpdate', function (message) {
 	var address = message.address;
 	//delete address.conversation;
 	if(message.address.channelId=="skype")
+	{
 	userStore.push(address);
+	}
+	else
+	{
 	bot.send(new builder.Message()
                     .text(JSON.stringify(message.address))
                     .address(message.address));
 	bot.send(new builder.Message()
                     .text(JSON.stringify(userStore))
                     .address(message.address));
+	}
 /*
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
